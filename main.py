@@ -29,20 +29,16 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# 🔥 개발용: 모든 origin 허용
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],      # 나중에 배포할 때만 좁히면 됨
-    allow_credentials=False,  # "*" 쓸 때는 False 권장
+    allow_origins=[
+        "https://cmj01moon.github.io",          # GitHub Pages
+        "https://cmj01moon.github.io/REDJOINT"  # 프로젝트 서브 경로
+    ],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# GitHub Pages 도메인 허용
-origins = [
-    "https://cmj01moon.github.io",
-    "https://cmj01moon.github.io/REDJOINT",
-]
 
 
 
@@ -119,3 +115,4 @@ def predict(req: PredictRequest):
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal server error: {e}")
+
